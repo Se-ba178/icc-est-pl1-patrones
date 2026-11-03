@@ -3,12 +3,48 @@
  */
 package edu.ups.pap;
 
+import edu.ups.pap.models.Pedido;
+import edu.ups.pap.models.prototype.ProductoBase;
+import edu.ups.pap.models.servicio.ServicioPedidos;
+
 public class App {
     public String getGreeting() {
         return "Hello World!";
     }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+
+        // El servicio registra los prototipos disponibles.
+        ServicioPedidos servicio = new ServicioPedidos();
+
+        // Creamos un pedido vacío.
+        Pedido pedido = new Pedido();
+
+        // Cada método clona un producto y agrega dos ingredientes.
+        pedido.agregarProducto(servicio.crearCafeConExtras());
+        pedido.agregarProducto(servicio.crearPizzaConExtras());
+        pedido.agregarProducto(servicio.crearEnsaladaConExtras());
+
+        // Mostramos los productos preparados.
+        // Recorremos los productos del pedido.
+        for (ProductoBase producto : pedido.getProductos()) {
+            System.out.println(producto.getNombre());
+            System.out.println("Precio: " + producto.getPrecio());
+        }
+
+        // Mostramos la cantidad y el total.
+        System.out.println("Cantidad: " + pedido.getCantidadProductos());
+        System.out.println("Total: " + pedido.calcularTotal());
+
+        // Comprobamos el precio de la pizza sin ingredientes.
+        ProductoBase pizzaBase = servicio.crearProducto("pizza");
+
+        System.out.println("Pizza base sin extras: " + pizzaBase.getPrecio());
+
+        // Eliminamos el café, ubicado en la posición cero.
+        pedido.eliminarProducto(0);
+
+        System.out.println("Total después de eliminar el café: " + pedido.calcularTotal());
+
     }
 }
