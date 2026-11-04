@@ -1,22 +1,24 @@
 package edu.ups.pap.models.prototype;
 
+import java.math.BigDecimal;
+
+import edu.ups.pap.models.TipoProducto;
+
 public class Ensalada extends ProductoBase{
 
-    //Constructor para crear una ensalada con datos iniciales
-    public Ensalada(String nombre, double precio){
-        super(nombre, precio);
+    public Ensalada(String id ){
+        super(id, TipoProducto.ENSALADA , "Enalada Sencilal" , new BigDecimal("3.00"));
     }
 
-    //Copia los datos de la ensalada original 
-    private  Ensalada(Ensalada original){
-        super(original);
+     //recbe el cafe original y crea una copia 
+     private Ensalada (Ensalada original , String nuevoId){
+        super(original, nuevoId);
     }
-
-    //Crea y develve una nueva ensalada a partir de la actual 
     @Override 
-    public Ensalada clonar(){
-        return new Ensalada(this);
+    public Ensalada copiar(String nuevoId){
+        return new  Ensalada(this,nuevoId);
     }
+
 
     
 }

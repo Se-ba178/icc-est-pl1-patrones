@@ -1,33 +1,28 @@
 package edu.ups.pap.models.decorator;
 
-import edu.ups.pap.models.prototype.ProductoBase;
+import java.math.BigDecimal;
 
-public class Azucar extends DecoradorIngredientes {
+import edu.ups.pap.models.Pedido;
 
-    // Costo adicional del azúcar.
-    private static final double COSTO = 0.20;
 
-    // Recibe un producto simple o uno que ya tenga ingredientes.
-    public Azucar(ProductoBase producto) {
-        super(producto);
+public class Azucar extends DecoradorIngrediente {
+
+    public Azucar(Pedido pedido){
+       // entrega el pedido al constructor on el decorador padre
+       super(pedido);
+    }
+    @Override 
+    public String descripcion(){
+        //CONSERVA LA DESCRIPCION ANTERIOR Y AGREGA AZUCAR 
+        return pedido.descripcion() + " + Azucar " ;
+
     }
 
-    @Override
-    public String getNombre() {
-        // Conserva el nombre anterior y añade azúcar.
-        return producto.getNombre() + " con azúcar";
+    @Override 
+    public  BigDecimal precio(){
+        return pedido.precio().add(new BigDecimal("0.50"));
     }
 
-    @Override
-    public double getPrecio() {
-        // Suma el azúcar al precio acumulado.
-        return producto.getPrecio() + COSTO;
-    }
-
-    @Override
-    public Azucar clonar() {
-        // Clona el producto interior y vuelve a agregar azúcar.
-        return new Azucar(producto.clonar());
-    }
+    
 
 }

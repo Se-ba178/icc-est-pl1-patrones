@@ -3,48 +3,177 @@
  */
 package edu.ups.pap;
 
+import edu.ups.pap.controller.ControladorPedidos;
 import edu.ups.pap.models.Pedido;
+import edu.ups.pap.models.prototype.Cafe;
 import edu.ups.pap.models.prototype.ProductoBase;
-import edu.ups.pap.models.servicio.ServicioPedidos;
+import edu.ups.pap.models.prototype.RegistroPrototipos;
+import edu.ups.pap.vista.VentanaPedidos;
 
 public class App {
     public String getGreeting() {
-        return "Hello World!";
+        return "Practica 1";
     }
 
     public static void main(String[] args) {
 
-        // El servicio registra los prototipos disponibles.
-        ServicioPedidos servicio = new ServicioPedidos();
+        VentanaPedidos ventana = new VentanaPedidos();
 
-        // Creamos un pedido vacío.
-        Pedido pedido = new Pedido();
+        ventana.setVisible(true);
 
-        // Cada método clona un producto y agrega dos ingredientes.
-        pedido.agregarProducto(servicio.crearCafeConExtras());
-        pedido.agregarProducto(servicio.crearPizzaConExtras());
-        pedido.agregarProducto(servicio.crearEnsaladaConExtras());
 
-        // Mostramos los productos preparados.
-        // Recorremos los productos del pedido.
-        for (ProductoBase producto : pedido.getProductos()) {
-            System.out.println(producto.getNombre());
-            System.out.println("Precio: " + producto.getPrecio());
+        System.out.println("-------- Prueba CA01-----------");
+        ControladorPedidos controlador = new ControladorPedidos();
+
+        // Creamos dos pedidos desde el prototipo de café.
+        Pedido primero = controlador.crearPedido("cafe");
+        Pedido segundo = controlador.crearPedido("cafe");
+
+        System.out.println("CA01 - Clonar café dos veces");
+
+        System.out.println("Primer pedido: " + primero.id() + " - Precio: " + primero.precio());
+
+        System.out.println("Segundo pedido: " + segundo.id() + " - Precio: " + segundo.precio());
+
+        System.out.println("-------- Prueba CA02-----------");
+        RegistroPrototipos registro = new RegistroPrototipos();
+
+        Cafe original = new Cafe("PROTO-CAFE");
+        registro.registrar("cafe", original);
+
+        ProductoBase copia = registro.clonar("cafe", "p-1");
+
+        System.out.println("CA02 - Comparar original y copia");
+        System.out.println("Son el mismo objeto: " + (original == copia));
+        System.out.println("Original: " + original.descripcion() + " - Precio: " + original.precio());
+        System.out.println("Copia: " + copia.descripcion() + " - Precio: " + copia.precio());
+
+        System.out.println("-------- Prueba CA03-----------");
+
+        controlador.agregarIngredientes(primero.id(), "azucar");
+        controlador.agregarIngredientes(primero.id(), "crema");
+
+        primero = controlador.consultarPedido(primero.id());
+
+        System.out.println("CA03 - Café con azúcar y crema");
+        System.out.println("Pedido: " + primero.id());
+        System.out.println("Descripcion: " + primero.descripcion());
+        System.out.println("Precio: " + primero.precio());
+
+        System.out.println("-------- Prueba CA04-----------");
+        // Personalizamos únicamente el primero.
+        controlador.agregarIngredientes(primero.id(), "azucar");
+        controlador.agregarIngredientes(primero.id(), "crema");
+
+        // Consultamos el segundo para comprobar que no cambió.
+        segundo = controlador.consultarPedido(segundo.id());
+
+        System.out.println("CA04 - Segundo café sin ingredientes");
+        System.out.println("Pedido: " + segundo.id());
+        System.out.println("Descripcion: " + segundo.descripcion());
+        System.out.println("Precio: " + segundo.precio());
+
+        System.out.println("-------- Prueba CA05-----------");
+        Pedido ensalada = controlador.crearPedido("ensalada");
+
+        controlador.agregarIngredientes(ensalada.id(), "tomate");
+        controlador.agregarIngredientes(ensalada.id(), "pollo");
+
+        ensalada = controlador.consultarPedido(ensalada.id());
+
+        System.out.println("CA05 - Ensalada con tomate y pollo");
+        System.out.println("Pedido: " + ensalada.id());
+        System.out.println("Descripcion: " + ensalada.descripcion());
+        System.out.println("Precio: " + ensalada.precio());
+
+        System.out.println("-------- Prueba CA06-----------");
+        Pedido pizza = controlador.crearPedido("pizza");
+
+        controlador.agregarIngredientes(pizza.id(), "queso");
+        controlador.agregarIngredientes(pizza.id(), "pepperoni");
+
+        pizza = controlador.consultarPedido(pizza.id());
+
+        System.out.println("CA06 - Pizza con queso y pepperoni");
+        System.out.println("Pedido: " + pizza.id());
+        System.out.println("Descripcion: " + pizza.descripcion());
+        System.out.println("Precio: " + pizza.precio());
+
+        System.out.println("-------- Prueba CA07-----------");
+        Pedido cafe = controlador.crearPedido("cafe");
+
+        System.out.println("CA07 - Intentar agregar queso a café");
+
+        try {
+            controlador.agregarIngredientes(cafe.id(), "queso");
+            System.out.println("ERROR: se permitió agregar queso");
+        } catch (IllegalArgumentException error) {
+            System.out.println("Operacion rechazada: " + error.getMessage());
         }
 
-        // Mostramos la cantidad y el total.
-        System.out.println("Cantidad: " + pedido.getCantidadProductos());
-        System.out.println("Total: " + pedido.calcularTotal());
+        cafe = controlador.consultarPedido(cafe.id());
 
-        // Comprobamos el precio de la pizza sin ingredientes.
-        ProductoBase pizzaBase = servicio.crearProducto("pizza");
+        System.out.println("Descripcion: " + cafe.descripcion());
+        System.out.println("Precio: " + cafe.precio());
+        System.out.println("-------- Prueba CA08-----------");
+        System.out.println("CA08 - Agregar ingrediente sin pedido seleccionado");
 
-        System.out.println("Pizza base sin extras: " + pizzaBase.getPrecio());
+        try {
+            controlador.agregarIngredientes(null, "azucar");
+            System.out.println("ERROR: se permitió agregar el ingrediente");
+        } catch (IllegalArgumentException error) {
+            System.out.println("Operacion rechazada: " + error.getMessage());
+        }
 
-        // Eliminamos el café, ubicado en la posición cero.
-        pedido.eliminarProducto(0);
+        cafe = controlador.consultarPedido(cafe.id());
 
-        System.out.println("Total después de eliminar el café: " + pedido.calcularTotal());
+        System.out.println("Cantidad de pedidos: " + controlador.getPedidos().size());
+        System.out.println("Descripcion: " + cafe.descripcion());
+        System.out.println("Precio: " + cafe.precio());
+
+        System.out.println("-------- Prueba CA09-----------");
+        System.out.println("CA09 - Solicitar una clave inexistente");
+
+        System.out.println(
+                "Pedidos antes: " + controlador.getPedidos().size());
+
+        try {
+            controlador.crearPedido("hamburguesa");
+            System.out.println("ERROR: se permitió crear el pedido");
+        } catch (IllegalArgumentException error) {
+            System.out.println("Operacion rechazada: " + error.getMessage());
+        }
+
+        System.out.println(
+                "Pedidos despues: " + controlador.getPedidos().size());
+        System.out.println("-------- Prueba CA10-----------");
+        controlador.agregarIngredientes(cafe.id(), "azucar");
+        controlador.agregarIngredientes(cafe.id(), "azucar");
+
+        cafe = controlador.consultarPedido(cafe.id());
+
+        System.out.println("CA10 - Agregar azúcar dos veces");
+        System.out.println("Pedido: " + cafe.id());
+        System.out.println("Descripcion: " + cafe.descripcion());
+        System.out.println("Precio: " + cafe.precio());
+    
+        
+        controlador.agregarIngredientes(primero.id(), "azucar");
+
+        System.out.println("-------- Prueba CA11 --------");
+        System.out.println("CA11 - Reiniciar y volver a clonar café");
+
+        controlador.reiniciarPedidos();
+
+        System.out.println(
+                "Pedidos despues de reiniciar: " + controlador.getPedidos().size());
+
+        Pedido nuevo = controlador.crearPedido("cafe");
+
+        System.out.println("Pedido: " + nuevo.id());
+        System.out.println("Descripcion: " + nuevo.descripcion());
+        System.out.println("Precio: " + nuevo.precio());
 
     }
+
 }

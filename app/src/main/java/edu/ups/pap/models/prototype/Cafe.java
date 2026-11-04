@@ -1,25 +1,24 @@
 package edu.ups.pap.models.prototype;
 
+import java.math.BigDecimal;
+
+import edu.ups.pap.models.TipoProducto;
+
 public class Cafe extends ProductoBase{
 
-    //CONSTRUCTOR para crear un cafe un cafe 
-    public  Cafe(String nombre,  double precio){
-        super(nombre, precio);
-
+    //cafe con la base
+    public Cafe(String id){
+        super(id,TipoProducto.CAFE, "Cafe" , new BigDecimal("2.20"));
     }
 
-
-    // recibe el cafe original y utiliza el constructor 
-    // de copia de productoBase para copiar , nombre y precio 
-    private Cafe(Cafe original ){
-        super(original);
+    //recbe el cafe original y crea una copia 
+    private Cafe(Cafe original , String nuevoId){
+        super(original, nuevoId);
     }
 
-    //Implementacion del patron Protype
     @Override 
-    public   Cafe clonar(){
-        //Cra un objeto nuevo copianda este cafe 
-        return new Cafe(this);
+    public Cafe copiar(String nuevoId){
+        return new Cafe(this , nuevoId);//this crea un cafe diferente con ls mismos datos
     }
 
 
