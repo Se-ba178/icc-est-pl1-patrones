@@ -1,7 +1,6 @@
 package edu.ups.pap.models.prototype;
 
 import java.math.BigDecimal;
-
 import edu.ups.pap.models.TipoProducto;
 
 public class Cafe extends ProductoBase{
@@ -19,8 +18,5 @@ public class Cafe extends ProductoBase{
     @Override 
     public Cafe copiar(String nuevoId){
         return new Cafe(this , nuevoId);//this crea un cafe diferente con ls mismos datos
-    }
-
-
-    
+    }   
 }

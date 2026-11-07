@@ -13,7 +13,6 @@ public class RegistroPrototipos {
         prototipos.put("cafe", new Cafe("PROTO-CAFE"));
         prototipos.put("ensalada", new Ensalada("PROTO-ENSALADA"));
         prototipos.put("pizza", new Pizza("PROTO-PIZZA"));
-
     }
 
     // busca el prtotypo y devuelve una copia con otro id

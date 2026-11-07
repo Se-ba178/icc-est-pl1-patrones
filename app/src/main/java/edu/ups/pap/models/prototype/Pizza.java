@@ -8,18 +8,13 @@ public class Pizza  extends ProductoBase{
     public  Pizza(String id){
         super(id, TipoProducto.PIZZA , "Piza simple" ,  new BigDecimal("5.00"));
     }
-
     //copia
     public Pizza(Pizza original, String nuevoId){
         super(original, nuevoId);
     }
-
     @Override 
     public Pizza copiar(String nuevoId){
         return  new Pizza(this, nuevoId);
 
-    }
-
-
-    
+    }    
 }

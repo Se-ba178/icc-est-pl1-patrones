@@ -16,8 +16,6 @@ public abstract class ProductoBase implements Pedido, Prototipo<ProductoBase> {
 
     //Constructor para crear un prodcuto original
     protected ProductoBase(String id, TipoProducto tipo , String descripcion , BigDecimal precioBase){
-
-        
         if(id == null || id.isBlank() ){
             throw new IllegalArgumentException("El identificador estavacio");
         }
