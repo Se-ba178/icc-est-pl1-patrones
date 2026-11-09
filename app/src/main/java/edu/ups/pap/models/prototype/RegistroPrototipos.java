@@ -1,18 +1,18 @@
 package edu.ups.pap.models.prototype;
 
-import java.util.TreeMap;
+import java.util.HashMap;
 
 public class RegistroPrototipos {
 
     // Guarada lso procutos originales asociados auna clav
-    private final TreeMap<String, ProductoBase> prototipos;
+    private final HashMap<String, ProductoBase> prototipos;
 
     public RegistroPrototipos() {
-        prototipos = new TreeMap<>();
+        prototipos = new HashMap<>();
 
-        prototipos.put("cafe", new Cafe("PROTO-CAFE"));
-        prototipos.put("ensalada", new Ensalada("PROTO-ENSALADA"));
-        prototipos.put("pizza", new Pizza("PROTO-PIZZA"));
+        prototipos.put("cafe", new Cafe("Orig-CAFE"));
+        prototipos.put("ensalada", new Ensalada("Orig-ENSALADA"));
+        prototipos.put("pizza", new Pizza("Orig-PIZZA"));
     }
 
     // busca el prtotypo y devuelve una copia con otro id

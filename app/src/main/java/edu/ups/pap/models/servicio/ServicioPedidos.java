@@ -119,12 +119,10 @@ public class ServicioPedidos {
 
     public ArrayList<Pedido> getPedidos(){
         //Una lista para evotar q de la lista original se puedan eliminar e la lista original 
-
         return new ArrayList<>(pedidos);
     }
 
     public void  reiniciarPedidos(){
-
         pedidos.clear();
     }
 

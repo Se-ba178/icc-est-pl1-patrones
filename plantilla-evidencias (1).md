@@ -1,8 +1,9 @@
 # Evidencias APP1 — PedidoLab
 
-**Repositorio:** https://github.com/Se-ba178/icc-est-pl1-patrones.git
+**Repositorio:**      https://github.com/Se-ba178/icc-est-pl1-patrones.git
 
 **Integrante:**  
+
 >Christian Villa    
 
 **Fecha:**
@@ -24,15 +25,22 @@
 | CA11 | Reiniciar los pedidos y volver a clonar Café. | Lista vacía tras reiniciar; nuevo café con precio base de $2.20. | La lista quedó en 0 pedidos. Después se creó p-2 con descripción Café y precio de $2.20. | app/src/assents/PRUEBACA11.png | Aprobado |
 ## Identificación de patrones
 
-- **Prototype:** Para el patron prototype creamos una carpeta en la cual abria todo lo q incluiria en dicho patron con las clases q son Cafe,Ensalada,Pizza, El productoBase y Registro de Producto los cuales Cafe,Pizza y Ensalad ason los prodcutos principales que vamos a tener . 
+- **Prototype:** 
 
-- **Decorator:**Como el patron prototype tambien tenemos una carpeta  q se va a destinar a todos lo q es del patron decorator con su clase abtracta q es la de DecoradorIngrediente  y las demas que vana hacer decoradores que acompañen a nuestros prodcutos principales 
+Para el patron prototype creamos una carpeta en la cual abria todo lo q incluiria en dicho patron con las clases q son Cafe,Ensalada,Pizza, El productoBase y Registro de Producto los cuales Cafe,Pizza y Ensalad ason los prodcutos principales que vamos a tener . 
 
-- **Integración:** método de servicio donde un clon recibe al menos dos decoradores.
+- **Decorator:** 
+
+Como el patron prototype tambien tenemos una carpeta  q se va a destinar a todos lo q es del patron decorator con su clase abtracta q es la de DecoradorIngrediente  y las demas que vana hacer decoradores que acompañen a nuestros prodcutos principales 
+
+- **Integración:** 
+
+método de servicio donde un clon recibe al menos dos decoradores.
 
 ## Decisiones de diseño
 
 1. En este proyecto ademas de las clases dadas yo le separa para trabajar con el MVC con la carpeta models la q su contenido era la de prototype y decorator los dos patrones que nos ayudaran a este proyecto 
+
 
 2. Aparte d todas las clases tambien se implemento un metodo que se especificaba en la gua q es el BigDecimal el cual hiba a ser encargado de sumar y dar los precios finales suando de forma decimal como lo indicaba en la guia 
 
@@ -40,6 +48,8 @@
 
 1. El decorator nos ayudara a los prodcutos base poderles agregar sus topinks o algo relacionado a el producto original
 
+
 2. El prototype nos sirve para poder crear un objeto y despues ese producto duplicarlo para poderlo usar en nuestra aplicacion de un forma mas rapida .
+
 
 3. Las pruebas en consola ayudaron a detectar errores antes de implementar la interfaz, como no guardar el pedido decorado en la lista.
